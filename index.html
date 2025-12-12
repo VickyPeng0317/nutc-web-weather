@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>學院氣象觀測站</title>
+    <title>柴柴氣象站 🐕</title>
+    <!-- 引入圓潤可愛的字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 基礎設定與字體 --- */
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap');
-
+        /* --- 柴犬主題配色變數 --- */
         :root {
-            --primary-navy: #1a2a6c;
-            --accent-red: #b21f1f;
-            --accent-gold: #fdbb2d;
-            --bg-cream: #f7f1e3;
-            --card-white: #ffffff;
-            --text-dark: #333;
+            --shiba-orange: #E69D45; /* 赤柴色 */
+            --shiba-cream: #FFF8E7;  /* 奶油白 */
+            --shiba-brown: #5D4037;  /* 深褐色 (文字) */
+            --accent-green: #8BC34A; /* 草地綠 (舒適度) */
+            --bg-color: #FDF6E3;     /* 背景色 */
         }
 
         * {
@@ -24,208 +23,199 @@
         }
 
         body {
-            font-family: 'Zen Maru Gothic', sans-serif; /* 圓潤可愛的字體 */
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--shiba-brown);
             display: flex;
             justify-content: center;
             min-height: 100vh;
             padding: 20px;
-            background-image: radial-gradient(var(--primary-navy) 1px, transparent 1px);
-            background-size: 20px 20px; /* 點狀背景紙質感 */
+            /* 背景加入淡淡的腳印裝飾 (使用 radial-gradient 模擬圓點) */
+            background-image: radial-gradient(#e6cfb5 15%, transparent 16%);
+            background-size: 30px 30px;
         }
 
         .container {
             width: 100%;
-            max-width: 600px;
-            background: transparent;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(93, 64, 55, 0.15);
+            border: 4px solid var(--shiba-brown);
+            position: relative;
         }
 
         /* --- 標題區 --- */
         header {
             text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 3px double var(--primary-navy);
-            padding-bottom: 15px;
-            position: relative;
+            margin-bottom: 25px;
         }
 
         h1 {
-            color: var(--primary-navy);
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            color: var(--shiba-brown);
+            text-shadow: 3px 3px 0px var(--shiba-orange);
+            margin-bottom: 10px;
             letter-spacing: 2px;
+        }
+
+        .location-tag {
             display: inline-block;
-            background: var(--bg-cream);
-            padding: 0 15px;
-            z-index: 1;
-            position: relative;
-        }
-
-        .subtitle {
+            background: var(--shiba-brown);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
             font-size: 0.9rem;
-            color: var(--accent-red);
-            font-weight: bold;
-            margin-top: 5px;
+            transform: rotate(-2deg);
         }
 
-        /* --- 載入中狀態 --- */
+        /* --- 載入動畫 --- */
         #loading {
             text-align: center;
             font-size: 1.2rem;
-            color: var(--primary-navy);
-            margin-top: 50px;
+            padding: 40px;
+            color: var(--shiba-orange);
+            font-weight: bold;
         }
 
         /* --- 主要天氣卡片 (Current) --- */
         .main-card {
-            background: var(--primary-navy);
-            color: var(--card-white);
-            border-radius: 15px;
+            background: var(--shiba-orange);
+            color: white;
+            border-radius: 20px;
             padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 15px rgba(26, 42, 108, 0.2);
             position: relative;
-            overflow: hidden;
-            border: 2px solid var(--accent-gold);
+            box-shadow: 5px 5px 0px var(--shiba-brown); /* 卡通風格陰影 */
+            transition: transform 0.3s;
         }
 
-        .main-card::before {
-            content: "LATEST REPORT";
+        .main-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 狗耳朵裝飾 */
+        .main-card::before, .main-card::after {
+            content: '';
             position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 0.7rem;
-            background: var(--accent-red);
-            padding: 3px 8px;
-            border-radius: 4px;
-            letter-spacing: 1px;
-            font-weight: bold;
+            top: -15px;
+            width: 40px;
+            height: 40px;
+            background: var(--shiba-orange);
+            border-radius: 10px;
+            z-index: -1;
+            border: 3px solid var(--shiba-brown);
+        }
+        .main-card::before { left: 30px; transform: rotate(-15deg); }
+        .main-card::after { right: 30px; transform: rotate(15deg); }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 2px dashed rgba(255,255,255,0.5);
+            padding-bottom: 10px;
         }
 
-        .main-content-wrapper {
+        .main-time-badge {
+            background: white;
+            color: var(--shiba-orange);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .main-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        .main-info {
-            flex: 1;
-        }
-
-        .period-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
         }
 
         .main-temp {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
+            font-size: 3.5rem;
+            font-weight: 700;
             line-height: 1;
-        }
-
-        .main-weather-text {
-            font-size: 1.2rem;
-            margin: 5px 0;
-        }
-
-        .main-details {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            opacity: 0.9;
-            line-height: 1.6;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
         }
 
         .main-icon {
-            font-size: 6rem;
-            margin-left: 20px;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+            font-size: 5.5rem;
+            animation: wiggle 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+        }
+
+        .main-details {
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.95rem;
         }
 
         /* --- 未來預報區 (Grid) --- */
-        .forecast-grid {
+        .forecast-list {
             display: flex;
             gap: 15px;
         }
 
         .sub-card {
             flex: 1;
-            background: var(--card-white);
-            border: 2px solid var(--primary-navy);
-            border-radius: 12px;
+            background: var(--shiba-cream);
+            border: 2px solid var(--shiba-orange);
+            border-radius: 15px;
             padding: 15px;
             text-align: center;
-            box-shadow: 4px 4px 0px var(--primary-navy); /* 復古硬陰影 */
-            transition: transform 0.2s;
+            color: var(--shiba-brown);
         }
 
-        .sub-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .sub-period {
+        .sub-time {
             font-weight: bold;
-            color: var(--primary-navy);
-            font-size: 1rem;
+            color: var(--shiba-orange);
             margin-bottom: 5px;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
+            font-size: 1rem;
         }
 
         .sub-icon {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin: 10px 0;
             display: inline-block;
-            animation: bounce 2s infinite;
+            transition: transform 0.3s;
+        }
+        
+        .sub-card:hover .sub-icon {
+            transform: scale(1.2) rotate(10deg);
         }
 
         .sub-temp {
             font-size: 1.2rem;
-            color: var(--accent-red);
             font-weight: bold;
         }
 
         .sub-rain {
-            font-size: 0.85rem;
-            color: #666;
+            font-size: 0.8rem;
+            color: #888;
             margin-top: 5px;
         }
 
-        /* --- 動畫 Keyframes --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        /* --- 動畫 --- */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
         }
 
         /* --- RWD --- */
         @media (max-width: 480px) {
-            .forecast-grid {
+            .forecast-list {
                 flex-direction: column;
             }
-            
-            .main-content-wrapper {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-
             .main-icon {
-                margin: 0 0 15px 0;
+                font-size: 4.5rem;
             }
-            
-            .main-card::before {
-                left: 50%;
-                transform: translateX(-50%);
+            .main-temp {
+                font-size: 2.8rem;
             }
         }
     </style>
@@ -234,129 +224,138 @@
 
     <div class="container">
         <header>
-            <h1>🏫 氣象觀測部</h1>
-            <div class="subtitle" id="city-name">資料載入中...</div>
+            <h1>🐕 柴柴氣象站</h1>
+            <div class="location-tag" id="city-name">台中市...</div>
         </header>
 
-        <div id="loading">正在連線至氣象衛星... 🛰️</div>
+        <div id="loading">
+            🐶 正在嗅聞天氣資訊...<br>
+            <span style="font-size:0.8rem; color:#888;">(汪汪！請稍候)</span>
+        </div>
 
-        <div id="weather-content" style="display: none;">
-            <div class="main-card" id="main-forecast">
-                </div>
+        <div id="weather-data" style="display: none;">
+            <!-- 當前主打區塊 -->
+            <div class="main-card" id="current-forecast">
+                <!-- JS 填入 -->
+            </div>
 
-            <div class="forecast-grid" id="sub-forecasts">
-                </div>
+            <!-- 未來預報列表 -->
+            <div class="forecast-list" id="future-forecasts">
+                <!-- JS 填入 -->
+            </div>
         </div>
     </div>
 
     <script>
-        // API URL
         const API_URL = 'https://nutc-web-vic-peng.zeabur.app/api/weather/kaohsiung';
 
-        // 根據天氣狀況描述回傳對應的 Emoji
-        function getWeatherIcon(weatherText) {
-            if (weatherText.includes('晴')) return '☀️';
-            if (weatherText.includes('雨')) return '🌧️';
-            if (weatherText.includes('雲')) return '☁️';
-            if (weatherText.includes('陰')) return '🌥️';
-            if (weatherText.includes('雷')) return '⛈️';
-            return '🌤️'; // 預設
-        }
-
-        // 根據時間字串判斷時段描述 (早晨、午後、晚間)
-        function formatPeriod(startTimeString) {
-            const date = new Date(startTimeString);
+        // 柴犬風格的時段描述轉換
+        function getShibaTime(startTimeStr) {
+            const date = new Date(startTimeStr);
             const hour = date.getHours();
-            
-            // 取得日期 (MM/DD)
             const month = date.getMonth() + 1;
             const day = date.getDate();
             const dateStr = `${month}/${day}`;
 
-            let period = "";
-            if (hour >= 5 && hour < 12) period = "早晨課程";
-            else if (hour >= 12 && hour < 17) period = "午後時光";
-            else if (hour >= 17 && hour < 22) period = "晚間自習";
-            else period = "深夜休整";
+            let desc = "";
+            if (hour >= 5 && hour < 11) desc = "早晨散步 🐕";
+            else if (hour >= 11 && hour < 14) desc = "午餐時間 🦴";
+            else if (hour >= 14 && hour < 18) desc = "午後打滾 🎾";
+            else if (hour >= 18 && hour < 23) desc = "晚間巡邏 🔦";
+            else desc = "呼呼大睡 💤";
 
-            return `${dateStr} ${period}`;
+            return { date: dateStr, desc: desc };
         }
 
-        // 渲染畫面主程式
-        async function fetchWeather() {
-            try {
-                const response = await fetch(API_URL);
-                const json = await response.json();
+        // 取得天氣 Emoji
+        function getWeatherEmoji(weatherText) {
+            if (weatherText.includes('晴')) return '☀️';
+            if (weatherText.includes('雷')) return '⛈️';
+            if (weatherText.includes('雨')) return '🌧️';
+            if (weatherText.includes('雲') || weatherText.includes('陰')) return '☁️';
+            return '🌤️';
+        }
 
-                if (!json.success) {
-                    throw new Error("API 回傳失敗");
-                }
+        // 取得舒適度 Emoji
+        function getComfortEmoji(temp) {
+            const t = parseInt(temp);
+            if (t > 28) return '🥵'; // 熱
+            if (t < 15) return '🧣'; // 冷
+            return '😊'; // 舒適
+        }
+
+        async function initWeather() {
+            const loadingEl = document.getElementById('loading');
+            const contentEl = document.getElementById('weather-data');
+            const cityEl = document.getElementById('city-name');
+            const mainCardEl = document.getElementById('current-forecast');
+            const futureListEl = document.getElementById('future-forecasts');
+
+            try {
+                const res = await fetch(API_URL);
+                const json = await res.json();
+
+                if (!json.success) throw new Error("API 呼叫失敗");
 
                 const data = json.data;
+                cityEl.textContent = `📍 ${data.city}`;
+
                 const forecasts = data.forecasts;
 
-                // 更新標題城市
-                document.getElementById('city-name').innerText = `📍 ${data.city} 天氣預報`;
-
-                // 隱藏 Loading，顯示內容
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('weather-content').style.display = 'block';
-
-                // --- 渲染主要時段 (第一筆資料) ---
-                const main = forecasts[0];
-                const mainCard = document.getElementById('main-forecast');
+                // 1. 渲染主要卡片 (第一筆資料)
+                const current = forecasts[0];
+                const timeInfo = getShibaTime(current.startTime);
                 
-                mainCard.innerHTML = `
-                    <div class="main-content-wrapper">
-                        <div class="main-info">
-                            <span class="period-badge">📅 ${formatPeriod(main.startTime)}</span>
-                            <div class="main-temp">${main.minTemp}~${main.maxTemp}</div>
-                            <div class="main-weather-text">${main.weather}</div>
+                mainCardEl.innerHTML = `
+                    <div class="main-header">
+                        <span class="main-time-badge">${timeInfo.date} ${timeInfo.desc}</span>
+                        <span style="font-size:0.9rem;">${current.weather}</span>
+                    </div>
+                    <div class="main-content">
+                        <div>
+                            <div class="main-temp">${current.minTemp.replace('C','')}~${current.maxTemp}</div>
                             <div class="main-details">
-                                ☔ 降雨機率：${main.rain}<br>
-                                🧣 舒適度：${main.comfort}
+                                💧 降雨機率：${current.rain}<br>
+                                ${getComfortEmoji(current.maxTemp)} ${current.comfort}
                             </div>
                         </div>
-                        <div class="main-icon">
-                            ${getWeatherIcon(main.weather)}
-                        </div>
+                        <div class="main-icon">${getWeatherEmoji(current.weather)}</div>
                     </div>
                 `;
 
-                // --- 渲染未來時段 (後兩筆資料) ---
-                const subContainer = document.getElementById('sub-forecasts');
-                subContainer.innerHTML = ''; // 清空
-
-                // 取出陣列的第 2 和第 3 筆 (index 1 & 2)
-                for (let i = 1; i < 3; i++) {
-                    if (forecasts[i]) {
+                // 2. 渲染下方未來區塊 (後兩筆資料)
+                futureListEl.innerHTML = '';
+                // 只取接下來的兩筆 (index 1 和 2)
+                for(let i=1; i<3; i++) {
+                    if(forecasts[i]) {
                         const item = forecasts[i];
-                        const subCard = document.createElement('div');
-                        subCard.className = 'sub-card';
+                        const subTimeInfo = getShibaTime(item.startTime);
                         
-                        subCard.innerHTML = `
-                            <div class="sub-period">${formatPeriod(item.startTime)}</div>
-                            <div class="sub-icon">${getWeatherIcon(item.weather)}</div>
-                            <div class="sub-temp">${item.minTemp} - ${item.maxTemp}</div>
-                            <div class="sub-rain">降雨 ${item.rain}</div>
-                            <div style="font-size:0.8rem; margin-top:5px; color:#555;">${item.comfort}</div>
+                        const subDiv = document.createElement('div');
+                        subDiv.className = 'sub-card';
+                        subDiv.innerHTML = `
+                            <div class="sub-time">${subTimeInfo.desc}</div>
+                            <div class="sub-icon">${getWeatherEmoji(item.weather)}</div>
+                            <div class="sub-temp">${item.minTemp}~${item.maxTemp}</div>
+                            <div class="sub-rain">☔ ${item.rain}</div>
+                            <div style="font-size:0.8rem; margin-top:5px; color:#a67c52;">${item.comfort}</div>
                         `;
-                        
-                        subContainer.appendChild(subCard);
+                        futureListEl.appendChild(subDiv);
                     }
                 }
 
-            } catch (error) {
-                console.error('Fetch error:', error);
-                document.getElementById('loading').innerHTML = `
-                    ❌ 讀取失敗，請稍後再試。<br>
-                    <small>${error.message}</small>
-                `;
+                // 完成，切換顯示
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'block';
+
+            } catch (err) {
+                console.error(err);
+                loadingEl.innerHTML = `😿 嗚嗚...連線失敗<br><button onclick="location.reload()" style="margin-top:10px; padding:5px 10px;">重新連線</button>`;
             }
         }
 
-        // 執行
-        fetchWeather();
+        // 啟動
+        initWeather();
     </script>
 </body>
 </html>
